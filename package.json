@@ -1,0 +1,35 @@
+{
+  "name": "movie-review-one",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fost97/movie-review-one.git"
+  },
+  "keywords": [
+    "movie",
+    "review",
+    "portal",
+    "opensource"
+  ],
+  "author": "Fausto Montepietra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Fost97/movie-review-one/issues"
+  },
+  "homepage": "https://github.com/Fost97/movie-review-one#readme",
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.1.1"
+  },
+  "dependencies": {
+    "sequelize": "^6.37.1"
+  }
+}
