@@ -13,13 +13,13 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate (models) {
-      this.belongsTo(models.NameBasics, { foreignKey: 'titleId', targetKey: 'nconst' })
+      this.belongsTo(models.TitleBasics, { foreignKey: 'titleId', targetKey: 'tconst' })
     }
   }
 
   // initiazion of the model
   TitleAkas.init(
-    { 
+    {
       titleId: {
         type: DataTypes.STRING,
         primaryKey: true,
@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       ordering: {
         type: DataTypes.INTEGER,
+        primaryKey: true,
         allowNull: false,
         description: 'a number to uniquely identify rows for a given titleId'
       },
@@ -66,8 +67,7 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: 'TitleAkas',
       tableName: 'title_akas',
-      schema: 'imdb',
-      timestamps: false,
+      timestamps: false
     }
   )
 

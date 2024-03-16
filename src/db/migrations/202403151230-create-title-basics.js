@@ -1,82 +1,75 @@
-const { Model } = require('sequelize')
-
-/**
- * Model that contains the usages and quota linked to an acronis instance
- * @param {import('sequelize').DataTypes} DataTypes
- * @param {import('sequelize').Sequelize} sequelize
- */
-module.exports = (sequelize, DataTypes) => {
-  class TitleBasics extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate (models) {
-      this.hasMany(models.TitleAkas, {
-        foreignKey: 'tconst',
-        as: 'titleAkas'
-      })
-    }
-  }
-
-  // initiazion of the model
-  TitleBasics.init(
-    {
+module.exports = {
+  up:
+  /**
+   * @param {import('sequelize').QueryInterface} queryInterface
+   * @param {import('sequelize').Sequelize} Sequelize
+   */
+  async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('title_basics', {
       tconst: {
-        type: DataTypes.STRING,
+        type: Sequelize.DataTypes.STRING,
         primaryKey: true,
         allowNull: false,
         description: 'alphanumeric unique identifier of the title'
       },
       titleType: {
-        type: DataTypes.STRING,
+        type: Sequelize.DataTypes.STRING,
         allowNull: false,
         description: 'the type/format of the title (e.g. movie, short, tvseries, tvepisode, video, etc)'
       },
       primaryTitle: {
-        type: DataTypes.TEXT,
+        type: Sequelize.DataTypes.TEXT,
         allowNull: false,
         description: 'the more popular title / the title used by the filmmakers on promotional materials at the point of release'
       },
       originalTitle: {
-        type: DataTypes.TEXT,
+        type: Sequelize.DataTypes.TEXT,
         allowNull: false,
         description: 'original title, in the original language'
       },
       isAdult: {
-        type: DataTypes.BOOLEAN,
+        type: Sequelize.DataTypes.BOOLEAN,
         allowNull: false,
         description: '0: non-adult title; 1: adult title'
       },
       startYear: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.DataTypes.INTEGER,
         allowNull: false,
         description: 'represents the release year of a title. In the case of TV Series, it is the series start year'
       },
       endYear: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.DataTypes.INTEGER,
         allowNull: false,
         description: 'TV Series end year. "\N" for all other title types'
       },
       runtimeMinutes: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.DataTypes.INTEGER,
         allowNull: false,
         description: 'primary runtime of the title, in minutes'
       },
       genres: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
+        type: Sequelize.DataTypes.ARRAY(Sequelize.DataTypes.STRING),
         allowNull: false,
         description: 'includes up to three genres associated with the title'
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DataTypes.DATE,
+        defaultValue: Sequelize.literal('now()')
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DataTypes.DATE,
+        defaultValue: Sequelize.literal('now()')
       }
-    },
-    {
-      sequelize,
-      modelName: 'TitleBasics',
-      tableName: 'title_basics',
-      timestamps: false
-    }
-  )
+    })
+  },
 
-  return TitleBasics
+  /**
+   * @param {import('sequelize').QueryInterface} queryInterface
+   * @param {import('sequelize').Sequelize} Sequelize
+   */
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('title_basics')
+  }
 }

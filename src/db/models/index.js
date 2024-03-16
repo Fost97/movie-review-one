@@ -11,6 +11,9 @@ if (!config) {
 
 const sequelize = new Sequelize(config)
 
+db.TitleBasics = require('./title-basics')(sequelize, Sequelize.DataTypes)
+db.TitleAkas = require('./title-akas')(sequelize, Sequelize.DataTypes)
+
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db)
